@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.demo.dao.ZhiHuUserDao">
+    <select id="selectUserGroupBySex" resultType="java.util.Map">
+        select business,count(1) as businesscount from zhihu_user group by business
+    </select>
+    <insert id="insert" parameterType="com.demo.model.ZhiHuUser">
+    	insert into zhihu_user 
+                (name,sex,business,company,position,education,major,userInfo)
+         values (#{name},#{sex},#{business},#{company},#{position},#{education},#{major},#{userInfo})
+    </insert>
+</mapper>
