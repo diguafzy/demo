@@ -44,11 +44,11 @@ public class LoginController {
 
     @RequestMapping(value = "/system/index")
     public String index(ModelMap modelMap) {
-        List<Map> resultList = zhiHuUserDao.selectUserGroupBySex();
+        List<Map> resultList = zhiHuUserDao.selectUserGroupByBusiness();
 
         String strXML = "";
         String[] color = new String[]{"AFD8F8","F6BD0F","8BBA00","FF8E46","008E8E","D64646","8E468E","588526","B3AA00","008ED6","9D080D","A186BE"};
-        strXML += "<graph caption='"+"知乎用户行业分布' decimalPrecision='0' formatNumberScale='0'>";
+        strXML += "<graph caption='"+"知乎用户行业分布(前12)' decimalPrecision='0' formatNumberScale='0'>";
         int index = 0;
         for(Map map : resultList) {
         	if(map.get("business") == null) continue; 
@@ -59,7 +59,19 @@ public class LoginController {
         strXML += "</graph>";
 
         modelMap.addAttribute("strXML", strXML);
-        
+
+        List<Map> resultList1 = zhiHuUserDao.selectUserGroupByEducation();
+    	String strXML1 = "";
+    	
+    	strXML1 += "<graph caption='知乎用户受教育程度(前12)' xAxisName='学校' yAxisName='人数' decimalPrecision='0' formatNumberScale='0'>";
+        for(Map map : resultList1) {
+        	if(map.get("education") == null) continue; 
+        	strXML1 += "<set name='"+map.get("education")+"' value='"+map.get("educationcount")+"' color='"+color[0]+"'/>";
+        }
+        strXML1 += "</graph>";
+
+        modelMap.addAttribute("strXML", strXML);
+        modelMap.addAttribute("strXML1", strXML1);
         return "system/index";
     }
 

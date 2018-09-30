@@ -24,7 +24,7 @@
     <div class="container">
         <div class="row">
             <div style="float:left;">
-                <table border="0" width="50%">
+                <table border="0" width="40%">
                     <tr>
                         <td>
 						    <jsp:include
@@ -33,11 +33,27 @@
 						         <jsp:param name="strURL" value="" />
 						         <jsp:param name="strXML" value="${strXML}" />
 						         <jsp:param name="chartId" value="myNext" />
-						         <jsp:param name="chartWidth" value="500" />
+						         <jsp:param name="chartWidth" value="400" />
 						         <jsp:param name="chartHeight" value="300" />
 						         <jsp:param name="debugMode" value="false" />
 						     </jsp:include>
                         </td>
+                    </tr>
+                </table>
+            </div>
+            <div style="float:right;">
+                <table border="0" width="40%">
+                    <tr>
+                        <td><jsp:include
+                                page="../FusionChartsHTMLRenderer.jsp" flush="true">
+                                <jsp:param name="chartSWF" value="FusionCharts/Bar2D.swf" />
+                                <jsp:param name="strURL" value="" />
+                                <jsp:param name="strXML" value="${strXML1}" />
+                                <jsp:param name="chartId" value="myNext" />
+                                <jsp:param name="chartWidth" value="400" />
+                                <jsp:param name="chartHeight" value="300" />
+                                <jsp:param name="debugMode" value="false" />
+                            </jsp:include></td>
                     </tr>
                 </table>
             </div>

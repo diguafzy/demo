@@ -4,8 +4,11 @@
         "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
 <mapper namespace="com.demo.dao.ZhiHuUserDao">
-    <select id="selectUserGroupBySex" resultType="java.util.Map">
-        select business,count(1) as businesscount from zhihu_user group by business
+    <select id="selectUserGroupByBusiness" resultType="java.util.Map">
+        select business,count(1) as businesscount from zhihu_user where business is not null and business != '' group by business order by business desc limit 12
+    </select>
+    <select id="selectUserGroupByEducation" resultType="java.util.Map">
+        select education,count(1) as educationcount from zhihu_user where education is not null and education != '' group by education order by educationcount desc limit 12
     </select>
     <insert id="insert" parameterType="com.demo.model.ZhiHuUser">
     	insert into zhihu_user 

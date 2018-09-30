@@ -10,7 +10,9 @@ import com.demo.model.ZhiHuUser;
 @Repository
 public interface ZhiHuUserDao {
 
-	List<Map> selectUserGroupBySex();
+	List<Map> selectUserGroupByBusiness();
+
+	List<Map> selectUserGroupByEducation();
 	
 	void insert(ZhiHuUser zhiHuUser);
 }

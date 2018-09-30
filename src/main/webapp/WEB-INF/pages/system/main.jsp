@@ -14,7 +14,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>网络爬虫</title>
+    <title>demo</title>
 
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
@@ -35,6 +35,9 @@
                     <li>
                         <a style="cursor:pointer;" target="mainFrame" href="system/index"><i id="index" class="icon-double-angle-right"></i>知乎</a>
                     </li>
+                    <li>
+                        <a style="cursor:pointer;" target="mainFrame" href="system/upload"><i id="index" class="icon-double-angle-right"></i>文件上传</a>
+                    </li>
                 </ul>
            </div>
            <div class="col-md-10">
@@ -49,9 +52,6 @@
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script type="text/javascript" src="script/bootstrap.min.js"></script>
 <script type="text/javascript">
-    (function(){
-        $("#index").trigger('click');
-    })()
 </script>
 </body>
 </html>
