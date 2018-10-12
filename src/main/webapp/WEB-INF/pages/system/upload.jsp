@@ -19,6 +19,7 @@
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/webuploader.css" />
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
 </head>
 <body>
 <div class="container" style="width: initial;">
@@ -27,10 +28,10 @@
 	        	<input type="hidden" id="filename" name="filename"/>
 	    </form:form>
         <div class='row form-group'>
-            <label class="col-md-4 control-label" style="text-align:right">文件:</label>
-            <div class="col-md-4">
+            <label class="col-md-2 control-label" style="text-align:right">文件:</label>
+            <div class="col-md-10">
                 <!--用来存放item-->  
-                <div id="thelist" class="uploader-list"></div>  
+                <div id="thelist" class="row"></div>  
                 <div id="filePicker">选择文件</div>
                 <button id="uploadbtn" class="btn btn-sm btn-success">提交</button>
             </div>
@@ -45,6 +46,7 @@
 <script type="text/javascript" src="script/bootstrap.min.js"></script>
 <script type="text/javascript" src="script/webuploader.js"></script>
 <script type="text/javascript">
+$(function() {
 	uploader = WebUploader.create({
 	    auto: true,
 	    pick: '#filePicker',
@@ -64,15 +66,32 @@
 	// 当有文件添加进来的时候  
 	uploader.on( 'fileQueued', function( file ) {  // webuploader事件.当选择文件后，文件被加载到文件队列中，触发该事件。等效于 uploader.onFileueued = function(file){...} ，类似js的事件定义。  
 	    var $li = $(  
-	            '<div id="' + file.id + '" class="file-item thumbnail">' +  
+	            '<div id="' + file.id + '" class="col-md-2">' +  
 	                '<img>' +  
 	                '<div class="info">' + file.name + '</div>' +  
 	            '</div>'  
 	            ),  
 	        $img = $li.find('img');  
-	
+	    var $btns = $('<div class="file-panel">' +
+	        '<span class="cancel" >删除</span>').appendTo($li);
+	    $li.on('mouseenter', function () {
+	        $btns.stop().animate({height: 30});
+	    });
+	    $li.on('mouseleave', function () {
+	        $btns.stop().animate({height: 0});
+	    });
+	    $btns.on('click', 'span', function () {
+	        var index = $(this).index();
+	        switch (index) {
+	            case 0:
+	                uploader.removeFile(file);
+	                removeFile(file);
+	                return;
+	        }
+	    });
 	
 	    // $("#thelist")为容器jQuery实例  
+	    if(!$("#thelist").hasClass("thumbnail")) $("#thelist").addClass("thumbnail");
 	    $("#thelist").append( $li );  
 	
 	    // 创建缩略图  
@@ -129,6 +148,13 @@
 	$("#uploadbtn").on( 'click', function() {  
 		$("#webupload").submit();  
 	});  
+	
+	// 负责view的销毁
+    function removeFile( file ) {
+        var $li = $('#'+file.id);
+        $li.off().find('.file-panel').off().end().remove();
+    }
+})
 </script>
 </body>
 </html>
