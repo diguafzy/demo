@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page isELIgnored="false" %>
 <%
     String path = request.getContextPath();
@@ -24,8 +23,8 @@
 <body>
 <div class="container" style="width: initial;">
 	<div class="container" style="text-align: center">
-	    <form:form action="system/add" id="webupload" class="form-horizontal" method="POST" role="form">
-	        	<input type="hidden" id="filename" name="filename"/>
+	    <form:form action="system/upload/add" id="webupload" class="form-horizontal" method="POST" role="form">
+	        	<input type="hidden" id="filenames" name="filenames"/>
 	    </form:form>
         <div class='row form-group'>
             <label class="col-md-2 control-label" style="text-align:right">文件:</label>
@@ -50,9 +49,6 @@ $(function() {
 	uploader = WebUploader.create({
 	    auto: true,
 	    pick: '#filePicker',
-	    formData : {
-	    	orderdate: '20171106'
-	    },
 	    swf: 'script/Uploader.swf',
 	    server: 'system/upload/save',
 	    accept: {
@@ -69,13 +65,14 @@ $(function() {
 	            '<div id="' + file.id + '" class="col-md-2">' +  
 	                '<img>' +  
 	                '<div class="info">' + file.name + '</div>' +  
+	                '<input type="hidden" id="filename'+file.id+'" value="">' +
 	            '</div>'  
 	            ),  
 	        $img = $li.find('img');  
 	    var $btns = $('<div class="file-panel">' +
-	        '<span class="cancel" >删除</span>').appendTo($li);
+	        '<span class="cancel fa fa-trash-o" >删除</span></div>').appendTo($li);
 	    $li.on('mouseenter', function () {
-	        $btns.stop().animate({height: 30});
+	        $btns.stop().animate({height: 20});
 	    });
 	    $li.on('mouseleave', function () {
 	        $btns.stop().animate({height: 0});
@@ -124,8 +121,8 @@ $(function() {
 	// 文件上传成功，给item添加成功class, 用样式标记上传成功。  
 	uploader.on( 'uploadSuccess', function( file, response) {
 	    $( '#'+file.id ).addClass('upload-state-done');
-	    if(response.picturename) $("#picturename").val(response.picturename);
-	    if(response.filename) $("#filename").val(response.filename);
+	    if(response.picturename) $("#filename"+file.id).val(response.picturename);
+	    if(response.picturename) $("#filenames").val($("#filenames").val()+","+response.picturename);
 	});  
 	
 	// 文件上传失败，显示上传出错。  
@@ -152,7 +149,20 @@ $(function() {
 	// 负责view的销毁
     function removeFile( file ) {
         var $li = $('#'+file.id);
-        $li.off().find('.file-panel').off().end().remove();
+        $.ajax({
+            type: "GET",
+            url: 'system/upload/delete',
+            data: {
+            	filename:$("#filename"+file.id).val()
+            },
+            dataType:'json',
+            cache: false,
+            success: function(data){
+                var $li = $('#'+file.id);
+                $li.off().find('.file-panel').off().end().remove();
+                if($("#thelist").find("div").length == 0) $("#thelist").removeClass("thumbnail");
+            }
+        });
     }
 })
 </script>
