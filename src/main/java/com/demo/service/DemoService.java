@@ -39,12 +39,12 @@ public class DemoService {
 			
 			futureList.add(future);
 		}
+
+		count.await();
+		pool.shutdown();
 		
 		for(int i=0;i<futureList.size();i++) {
 			System.out.println(futureList.get(i).get());
 		}
-		
-		count.await();
-		pool.shutdown();
 	}
 }
