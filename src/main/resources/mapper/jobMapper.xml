@@ -7,4 +7,11 @@
     <select id="selectAll" resultType="com.demo.model.JobModel">
     	select * from job
     </select>
+    <insert id="save" useGeneratedKeys="true" keyProperty="jobId" parameterType="com.demo.model.JobModel">
+    	insert into job (jobName,jobClass,cronExpression,isEnable) 
+    	values (#{jobName},#{jobClass},#{cronExpression},#{isEnable}) 
+    </insert>
+    <delete id="delete" parameterType="int">
+    	delete from job where jobId=#{jobId}
+    </delete>
 </mapper>

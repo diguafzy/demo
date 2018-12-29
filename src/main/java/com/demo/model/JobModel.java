@@ -2,11 +2,18 @@ package com.demo.model;
 
 public class JobModel {
 
+	private int jobId;	//任务ID
     private String jobName;     // 任务名称  
     private String jobClass;        // 任务类  
     private String cronExpression;      // 规则表达式  
     private String isEnable;        // 是否启用  
     
+	public int getJobId() {
+		return jobId;
+	}
+	public void setJobId(int jobId) {
+		this.jobId = jobId;
+	}
 	public String getJobName() {
 		return jobName;
 	}

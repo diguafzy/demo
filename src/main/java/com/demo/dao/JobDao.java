@@ -10,4 +10,8 @@ import com.demo.model.JobModel;
 public interface JobDao {
 
 	List<JobModel> selectAll();
+	
+	void save(JobModel jobModel);
+	
+	void delete(int jobId);
 }

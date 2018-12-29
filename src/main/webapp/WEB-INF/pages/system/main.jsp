@@ -36,7 +36,10 @@
                         <a style="cursor:pointer;" target="mainFrame" href="system/index"><i id="index" class="icon-double-angle-right"></i>知乎</a>
                     </li>
                     <li>
-                        <a style="cursor:pointer;" target="mainFrame" href="system/upload"><i id="index" class="icon-double-angle-right"></i>文件上传</a>
+                        <a style="cursor:pointer;" target="mainFrame" href="system/upload"><i id="upload" class="icon-double-angle-right"></i>文件上传</a>
+                    </li>
+                    <li>
+                        <a style="cursor:pointer;" target="mainFrame" href="system/job"><i id="job" class="icon-double-angle-right"></i>任务调度</a>
                     </li>
                 </ul>
            </div>
